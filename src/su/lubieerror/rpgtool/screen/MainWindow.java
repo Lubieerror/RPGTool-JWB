@@ -31,6 +31,7 @@ public class MainWindow extends JFrame implements ActionListener
 	private static final String typeVersion = "Alpha";
 	private static final long serialVersionUID = 3;
 	private static final int underVersion = 0;
+	private static final int build = 22;
 	private JPanel contentPane;
 	private JSpinner tFrom, tTo;
 	private JButton bThrow, bStart, bStop, bPause, bClear;
