@@ -47,7 +47,12 @@ public class MainWindow extends JFrame implements ActionListener
 	public JLabel iTime;
 
 	/* TODO:
-	 * -stoper/timer
+	 * -stoper/timer 
+	 * https://stackoverflow.com/questions/23695123/equivalent-of-timer-in-c-sharp-in-java
+	 * https://stackoverflow.com/questions/11550561/pause-the-timer-and-then-continue-it
+	 * https://stackoverflow.com/questions/11550561/pause-the-timer-and-then-continue-it
+	 * https://stackoverflow.com/questions/10971346/stop-watch-android-pause-then-start-and-begin-from-where-it-left-off
+	 * 
 	 * -better randoms using
 	 *  +Mersenne Twister
 	 *  +Mersenne Twister Light
