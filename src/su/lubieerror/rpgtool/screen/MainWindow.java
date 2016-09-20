@@ -31,11 +31,10 @@ public class MainWindow extends JFrame implements ActionListener
 	private static final String typeVersion = "Alpha";
 	private static final long serialVersionUID = 3;
 	private static final int underVersion = 0;
-	private static final int build = 17;
 	private JPanel contentPane;
 	private JSpinner tFrom, tTo;
 	private JButton bThrow, bStart, bStop, bPause, bClear;
-	private JLabel sTime, iTime, sHistory, sProgram, sType, sThrow, sFrom, sTo, iThrow;
+	private JLabel sTime, sHistory, sProgram, sType, sThrow, sFrom, sTo, iThrow;
 	private JRadioButton rOne, rTwo, rThree, rFour;
 	JList<String> lHistory;
 	private Dice mDice = new Dice(MainWindow.class.getResource("/res/mp3/dice.wav"),
@@ -44,8 +43,9 @@ public class MainWindow extends JFrame implements ActionListener
 	private int sys_x;
 	private int sys_y;
 	
+	public JLabel iTime;
+
 	/* TODO:
-	 * -right side
 	 * -stoper/timer
 	 * -better randoms using
 	 *  +Mersenne Twister
@@ -55,6 +55,7 @@ public class MainWindow extends JFrame implements ActionListener
 	 * -Implement better sound system
 	 * -reduce volume
 	 * -add menubar (reduce volume, random system(?), look)
+	 * -right side
 	 */
 
 	public static void main(String[] args)
@@ -116,7 +117,6 @@ public class MainWindow extends JFrame implements ActionListener
 		int xpStart = bStart.getX();
 
 		bThrow = new JButton("Losuj!");
-		// bThrow.setBounds((this.getHeight() / 2) - 75, 325, 110, 70);
 		bThrow.setBounds((this.getHeight() / 2) - 75, 325, 110, 70);
 		bThrow.setFont(new Font(null, Font.PLAIN, 20));
 		contentPane.add(bThrow);

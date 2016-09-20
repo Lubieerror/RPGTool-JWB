@@ -14,7 +14,7 @@ public class Dice
 	private DefaultListModel<String> history = new DefaultListModel<>();
 	private String sR;
 	private int iR;
-	
+
 	private URL soundPath, clearPath;
 
 	public Dice(URL url, URL url2)
@@ -25,24 +25,25 @@ public class Dice
 		dicePlayer = new SoundPlayer(soundPath);
 		clearPlayer = new SoundPlayer(clearPath);
 	}
-	
+
 	private int myRandomNextInt(int min, int max, int ver)
 	{
+		max++;
+		int range = max - min;
 		rand.nextInt();
 		rand.nextInt();
 		rand.nextInt();
-		if(ver == 0)
-			return rand.nextInt(max) + min;
-		else if(ver == 1)
+		if (ver == 0)
+			return rand.nextInt(range) + min;
+		else if (ver == 1)
 			System.out.println("UNIMPLEMENTED! MT");
-		else if(ver == 2)
+		else if (ver == 2)
 			System.out.println("UNIMPLEMENTED! MT Light");
-		else if(ver == 3)
+		else if (ver == 3)
 			System.out.println("UNIMPLEMENTED! Xirshift");
-		else if(ver == 4)
+		else if (ver == 4)
 			System.out.println("UNIMPLEMENTED! TRNG");
-		else
-			System.out.println("ERROR! Bad version :(");
+		else System.out.println("ERROR! Bad version :(");
 		rand.nextInt();
 		rand.nextInt();
 		rand.nextInt();
@@ -76,14 +77,14 @@ public class Dice
 		clearPlayer.stop();
 		clearPlayer.play();
 	}
-	
+
 	public String completeDiceRoll(int x, int y)
 	{
 		playDiceSound();
 		Roll(x, y);
 		return getResult();
 	}
-	
+
 	public void completeClear()
 	{
 		playClearSound();
@@ -97,11 +98,11 @@ public class Dice
 
 	public void addToHistory(int i)
 	{
-		history.addElement(Integer.toString(i) + "  ");
+		history.add(0, Integer.toString(i) + "  ");
 	}
 
 	public void addStringToHistory(String s)
 	{
-		history.addElement(s);
+		history.add(0, s);
 	}
 }
