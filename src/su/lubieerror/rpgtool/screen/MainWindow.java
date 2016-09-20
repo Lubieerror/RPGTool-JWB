@@ -52,6 +52,7 @@ public class MainWindow extends JFrame implements ActionListener
 	 * https://stackoverflow.com/questions/11550561/pause-the-timer-and-then-continue-it
 	 * https://stackoverflow.com/questions/11550561/pause-the-timer-and-then-continue-it
 	 * https://stackoverflow.com/questions/10971346/stop-watch-android-pause-then-start-and-begin-from-where-it-left-off
+	 * https://www.youtube.com/watch?v=TzoEll80V3c
 	 * 
 	 * -better randoms using
 	 *  +Mersenne Twister
