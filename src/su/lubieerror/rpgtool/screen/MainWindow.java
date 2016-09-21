@@ -217,7 +217,6 @@ public class MainWindow extends JFrame implements ActionListener
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(295, 74, 105, 260);
 		contentPane.add(scrollPane);
 
@@ -262,13 +261,13 @@ public class MainWindow extends JFrame implements ActionListener
 				{
 					Toolkit.getDefaultToolkit().beep();
 					JOptionPane.showMessageDialog(this,
-							"<html><center>Invalid values!<br>Check if your first number isn't bigger than second!</center></html>",
+							"<html><center><b>Invalid values!<b><br>Check if your first number isn't bigger or equal second!</center></html>",
 							"Invalid values!", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 			if (currentThrow != null)
 				mDice.addStringToHistory(currentThrow);
-			currentThrow = mDice.completeDiceRoll(sys_x, sys_y);
+			currentThrow = mDice.completeDiceRoll(sys_x, sys_y, 1);
 			iThrow.setText(currentThrow);
 			bClear.setEnabled(true);
 		}
