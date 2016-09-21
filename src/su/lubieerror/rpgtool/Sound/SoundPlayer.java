@@ -14,10 +14,8 @@ public class SoundPlayer
 
 	public SoundPlayer(URL soundPath)
 	{
-		// System.out.println("soundFile Created");
 		soundFile = soundPath;
 		player = Applet.newAudioClip(soundFile);
-		// System.out.println("player created");
 	}
 
 	public void play()
@@ -30,10 +28,9 @@ public class SoundPlayer
 		try
 		{
 			player.stop();
-			// System.out.println("player.stop()");
 		} catch (Exception e)
 		{
-			System.out.println("ERROR! in player.stop()");
+			System.out.println("ERROR! when player.stop()");
 			e.printStackTrace();
 		}
 	}

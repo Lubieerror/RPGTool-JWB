@@ -24,14 +24,13 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import su.lubieerror.rpgtool.ProgramVersion;
 import su.lubieerror.rpgtool.Tools.Dice;
+import su.lubieerror.rpgtool.Tools.StopWatch;
 
 public class MainWindow extends JFrame implements ActionListener
 {
-	private static final String typeVersion = "Alpha";
-	private static final long serialVersionUID = 3;
-	private static final int underVersion = 0;
-	private static final int build = 22;
+	private static final long serialVersionUID = 9144683399426863535L;
 	private JPanel contentPane;
 	private JSpinner tFrom, tTo;
 	private JButton bThrow, bStart, bStop, bPause, bClear;
@@ -43,16 +42,13 @@ public class MainWindow extends JFrame implements ActionListener
 	private String currentThrow;
 	private int sys_x;
 	private int sys_y;
+	private StopWatch myStoper;
 	
-	public JLabel iTime;
+	private static JLabel iTime;
 
 	/* TODO:
-	 * -stoper/timer 
-	 * https://stackoverflow.com/questions/23695123/equivalent-of-timer-in-c-sharp-in-java
-	 * https://stackoverflow.com/questions/11550561/pause-the-timer-and-then-continue-it
-	 * https://stackoverflow.com/questions/11550561/pause-the-timer-and-then-continue-it
-	 * https://stackoverflow.com/questions/10971346/stop-watch-android-pause-then-start-and-begin-from-where-it-left-off
-	 * https://www.youtube.com/watch?v=TzoEll80V3c
+	 * -Fix linux fonts
+	 * https://stackoverflow.com/questions/12998604/adding-fonts-to-swing-application-and-include-in-package#12998649
 	 * 
 	 * -better randoms using
 	 *  +Mersenne Twister
@@ -93,8 +89,8 @@ public class MainWindow extends JFrame implements ActionListener
 
 	public MainWindow()
 	{
-		setTitle("RPG Tool by lubieerror v. <<" + typeVersion + ">> " + serialVersionUID + "." + underVersion + "."
-				+ build + " (J,SWB)");
+		setTitle("RPG Tool by lubieerror v. " + ProgramVersion.VERSION + "." + ProgramVersion.UNDERVERSION + "_"
+				+ ProgramVersion.BUILD + " (J,SWB)[" + ProgramVersion.TYPEVERSION + "]");
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/res/dice_ico.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,73 +101,75 @@ public class MainWindow extends JFrame implements ActionListener
 		contentPane.setLayout(null);
 
 		bStart = new JButton("Start");
-		bStart.setBounds(27, 115, 75, 40);
+		bStart.setBounds(27, 115, 80, 40);
 		contentPane.add(bStart);
 		bStart.addActionListener(this);
 
-		bPause = new JButton("Pauza");
+		bPause = new JButton("Pause");
 		bPause.setEnabled(false);
-		bPause.setBounds(107, 115, 75, 40);
+		bPause.setBounds(110, 115, 80, 40);
 		contentPane.add(bPause);
 		bPause.addActionListener(this);
 
 		bStop = new JButton("Stop");
 		bStop.setEnabled(false);
-		bStop.setBounds(187, 115, 75, 40);
+		bStop.setBounds(192, 115, 80, 40);
 		contentPane.add(bStop);
 		bStop.addActionListener(this);
 
 		int xpStart = bStart.getX();
 
-		bThrow = new JButton("Losuj!");
+		bThrow = new JButton("Throw!");
 		bThrow.setBounds((this.getHeight() / 2) - 75, 325, 110, 70);
 		bThrow.setFont(new Font(null, Font.PLAIN, 20));
 		contentPane.add(bThrow);
 		bThrow.addActionListener(this);
 
-		bClear = new JButton("Wyczyœæ!");
+		bClear = new JButton("Clear!");
 		bClear.setEnabled(false);
 		bClear.setBounds((this.getHeight() / 2) + 70, 345, 110, 50);
 		contentPane.add(bClear);
 		bClear.addActionListener(this);
 
-		sTime = new JLabel("Czas gry:");
-		sTime.setBounds(67, 15, 110, 25);
+		sTime = new JLabel("Game time:");
+		sTime.setBounds(60, 15, 125, 25);
 		sTime.setFont(new Font(null, Font.PLAIN, 21));
 		contentPane.add(sTime);
 
-		iTime = new JLabel("CLICK_TO_START");
-		iTime.setBounds(xpStart + 10, 55, 210, 40);
-		iTime.setFont(new Font(null, Font.BOLD, 23));
+		iTime = new JLabel("<html><center>CLICK_TO_START</center></html>");
+		iTime.setBounds(27, 55, 235, 40);
+		iTime.setFont(new Font("Monospace", Font.BOLD, 23));
 		contentPane.add(iTime);
 
-		sHistory = new JLabel("<html><center>Historia rzutów:</center></html>");
+		sHistory = new JLabel("<html><center>Roll history:</center></html>");
 		sHistory.setHorizontalAlignment(SwingConstants.CENTER);
 		sHistory.setBounds(295, 19, 105, 40);
-		sHistory.setFont(new Font(null, Font.BOLD, 16));
+		sHistory.setFont(new Font("Serif", Font.BOLD, 16));
 		contentPane.add(sHistory);
 
-		sProgram = new JLabel("Generator rzutu koœci¹");
-		sProgram.setBounds(xpStart + 15, 175, 200, 25);
-		sProgram.setFont(new Font(null, Font.PLAIN, 18));
+		sProgram = new JLabel("Throw dice generator");
+		sProgram.setBounds(xpStart + 15, 175, 215, 25);
+		sProgram.setFont(new Font(null, Font.PLAIN, 20));
 		contentPane.add(sProgram);
 
-		sType = new JLabel("Typ koœci:");
+		sType = new JLabel("Dice type:");
 		sType.setBounds(27, 200, 75, 25);
 		sType.setFont(new Font(null, Font.PLAIN, 14));
 		contentPane.add(sType);
 
-		sThrow = new JLabel("Wyrzucono:");
-		sThrow.setBounds(150, 200, 105, 25);
-		sThrow.setFont(new Font(null, Font.PLAIN, 18));
+		sThrow = new JLabel("<html><center>Thrown:</center></html>");
+		sThrow.setBounds(150, 205, 105, 40);
+		sThrow.setFont(new Font(null, Font.BOLD, 20));
 		contentPane.add(sThrow);
 
-		sFrom = new JLabel("Od: ");
-		sFrom.setBounds(15, 340, 26, 12);
+		sFrom = new JLabel("From: ");
+		sFrom.setHorizontalAlignment(SwingConstants.RIGHT);
+		sFrom.setBounds(5, 340, 45, 12);
 		contentPane.add(sFrom);
 
-		sTo = new JLabel("Do: ");
-		sTo.setBounds(15, 375, 26, 12);
+		sTo = new JLabel("To: ");
+		sTo.setHorizontalAlignment(SwingConstants.RIGHT);
+		sTo.setBounds(5, 375, 45, 12);
 		contentPane.add(sTo);
 
 		iThrow = new JLabel("null");
@@ -181,12 +179,12 @@ public class MainWindow extends JFrame implements ActionListener
 		contentPane.add(iThrow);
 
 		rOne = new JRadioButton("1-6");
-		rOne.setBounds(27, 230, 75, 23);
+		rOne.setBounds(27, 230, 78, 23);
 		contentPane.add(rOne);
 		rOne.addActionListener(this);
 
 		rTwo = new JRadioButton("1-10");
-		rTwo.setBounds(27, 255, 75, 23);
+		rTwo.setBounds(27, 255, 78, 23);
 		contentPane.add(rTwo);
 		rTwo.addActionListener(this);
 
@@ -194,26 +192,26 @@ public class MainWindow extends JFrame implements ActionListener
 		rThree.setSelected(true);
 		sys_x = 1;
 		sys_y = 100;
-		rThree.setBounds(27, 280, 75, 23);
+		rThree.setBounds(27, 280, 78, 23);
 		contentPane.add(rThree);
 		rThree.addActionListener(this);
 
 		rFour = new JRadioButton("Custom");
-		rFour.setBounds(27, 305, 75, 23);
+		rFour.setBounds(27, 305, 78, 23);
 		contentPane.add(rFour);
 		rFour.addActionListener(this);
 
 		tFrom = new JSpinner();
 		tFrom.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		tFrom.setEnabled(false);
-		tFrom.setBounds(37, 335, 65, 25);
+		tFrom.setBounds(50, 335, 53, 25);
 		contentPane.add(tFrom);
 		// tFrom.setColumns(10);
 
 		tTo = new JSpinner();
 		tTo.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		tTo.setEnabled(false);
-		tTo.setBounds(37, 370, 65, 25);
+		tTo.setBounds(50, 370, 53, 25);
 		contentPane.add(tTo);
 		// tTo.setColumns(10);
 
@@ -235,7 +233,7 @@ public class MainWindow extends JFrame implements ActionListener
 				"This part is in planes. We'll bring it to live soon... Don't worry. We'll done it before HL3 will be released!");
 		lblToDo.setBackground(new Color(0, 120, 215));
 		lblToDo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblToDo.setFont(new Font("Tahoma", Font.BOLD, 99));
+		lblToDo.setFont(new Font("Monospace", Font.BOLD, 90));
 		lblToDo.setBounds(410, 15, 369, 380);
 		contentPane.add(lblToDo);
 
@@ -245,6 +243,8 @@ public class MainWindow extends JFrame implements ActionListener
 		contentPane.add(panel);
 		DefaultListCellRenderer renderer = (DefaultListCellRenderer) lHistory.getCellRenderer();
 		renderer.setHorizontalAlignment(JLabel.RIGHT);
+		
+		myStoper = new StopWatch(iTime);
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -282,26 +282,30 @@ public class MainWindow extends JFrame implements ActionListener
 		}
 		else if (my_source == bStart)
 		{
+			if(!bStop.isEnabled())
+				iTime.setText("00:00.00");
+			iTime.setFont(new Font(null, Font.PLAIN, 40));
+			myStoper.start();
 			bStart.setEnabled(false);
 			bPause.setEnabled(true);
 			bStop.setEnabled(true);
-			iTime.setText("00:00.00");
-			iTime.setFont(new Font(null, Font.PLAIN, 40));
 			iTime.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		else if (my_source == bPause)
 		{
+			myStoper.pause();
 			bStart.setEnabled(true);
 			bPause.setEnabled(false);
 			bStop.setEnabled(true);
 		}
 		else if (my_source == bStop)
 		{
+			myStoper.stop();
 			bStart.setEnabled(true);
 			bPause.setEnabled(false);
 			bStop.setEnabled(false);
 			iTime.setText("CLICK_TO_START");
-			iTime.setFont(new Font(null, Font.BOLD, 23));
+			iTime.setFont(new Font("Monospace", Font.BOLD, 23));
 			iTime.setHorizontalAlignment(SwingConstants.LEFT);
 		}
 		else if (my_source == rOne)
