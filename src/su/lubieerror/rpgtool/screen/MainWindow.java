@@ -101,123 +101,130 @@ public class MainWindow extends JFrame implements ActionListener
 		contentPane.setLayout(null);
 
 		bStart = new JButton("Start");
-		bStart.setBounds(27, 115, 80, 40);
+		bStart.setBounds(10, 115, 80, 40);
 		contentPane.add(bStart);
 		bStart.addActionListener(this);
 
 		bPause = new JButton("Pause");
 		bPause.setEnabled(false);
-		bPause.setBounds(110, 115, 80, 40);
+		bPause.setBounds(93, 115, 80, 40);
 		contentPane.add(bPause);
 		bPause.addActionListener(this);
 
 		bStop = new JButton("Stop");
 		bStop.setEnabled(false);
-		bStop.setBounds(192, 115, 80, 40);
+		bStop.setBounds(175, 115, 80, 40);
 		contentPane.add(bStop);
 		bStop.addActionListener(this);
 
-		int xpStart = bStart.getX();
-
 		bThrow = new JButton("Throw!");
-		bThrow.setBounds((this.getHeight() / 2) - 75, 325, 110, 70);
+		bThrow.setBounds(123, 325, 110, 70);
 		bThrow.setFont(new Font(null, Font.PLAIN, 20));
 		contentPane.add(bThrow);
 		bThrow.addActionListener(this);
 
 		bClear = new JButton("Clear!");
 		bClear.setEnabled(false);
-		bClear.setBounds((this.getHeight() / 2) + 70, 345, 110, 50);
+		bClear.setBounds(265, 345, 110, 50);
 		contentPane.add(bClear);
 		bClear.addActionListener(this);
 
 		sTime = new JLabel("Game time:");
-		sTime.setBounds(60, 15, 125, 25);
+		sTime.setHorizontalAlignment(SwingConstants.CENTER);
+		sTime.setBounds(10, 15, 235, 29);
 		sTime.setFont(new Font(null, Font.PLAIN, 21));
 		contentPane.add(sTime);
 
-		iTime = new JLabel("<html><center>CLICK_TO_START</center></html>");
-		iTime.setBounds(27, 55, 235, 40);
+		iTime = new JLabel("CLICK_TO_START");
+		iTime.setHorizontalAlignment(SwingConstants.CENTER);
+		iTime.setBounds(10, 55, 235, 40);
 		iTime.setFont(new Font("Monospace", Font.BOLD, 23));
 		contentPane.add(iTime);
 
 		sHistory = new JLabel("<html><center>Roll history:</center></html>");
 		sHistory.setHorizontalAlignment(SwingConstants.CENTER);
-		sHistory.setBounds(295, 19, 105, 40);
-		sHistory.setFont(new Font("Serif", Font.BOLD, 16));
+		sHistory.setBounds(265, 15, 110, 29);
+		sHistory.setFont(new Font("Serif", Font.BOLD, 17));
 		contentPane.add(sHistory);
 
 		sProgram = new JLabel("Throw dice generator");
-		sProgram.setBounds(xpStart + 15, 175, 215, 25);
-		sProgram.setFont(new Font(null, Font.PLAIN, 20));
+		sProgram.setHorizontalAlignment(SwingConstants.CENTER);
+		sProgram.setBounds(10, 166, 245, 40);
+		sProgram.setFont(new Font("Dialog", Font.PLAIN, 22));
 		contentPane.add(sProgram);
 
 		sType = new JLabel("Dice type:");
-		sType.setBounds(27, 200, 75, 25);
+		sType.setBounds(20, 205, 80, 25);
 		sType.setFont(new Font(null, Font.PLAIN, 14));
 		contentPane.add(sType);
 
 		sThrow = new JLabel("<html><center>Thrown:</center></html>");
-		sThrow.setBounds(150, 205, 105, 40);
+		sThrow.setHorizontalAlignment(SwingConstants.CENTER);
+		sThrow.setBounds(123, 205, 105, 40);
 		sThrow.setFont(new Font(null, Font.BOLD, 20));
 		contentPane.add(sThrow);
 
-		sFrom = new JLabel("From: ");
+		sFrom = new JLabel("Min: ");
 		sFrom.setHorizontalAlignment(SwingConstants.RIGHT);
-		sFrom.setBounds(5, 340, 45, 12);
+		sFrom.setBounds(0, 340, 45, 12);
 		contentPane.add(sFrom);
 
-		sTo = new JLabel("To: ");
+		sTo = new JLabel("Max: ");
 		sTo.setHorizontalAlignment(SwingConstants.RIGHT);
-		sTo.setBounds(5, 375, 45, 12);
+		sTo.setBounds(0, 375, 45, 12);
 		contentPane.add(sTo);
 
 		iThrow = new JLabel("null");
 		iThrow.setHorizontalAlignment(SwingConstants.CENTER);
-		iThrow.setBounds(145, 236, 110, 78);
-		iThrow.setFont(new Font("Dialog", Font.PLAIN, 45));
+		iThrow.setBounds(123, 230, 110, 84);
+		iThrow.setFont(new Font("Dialog", Font.PLAIN, 49));
 		contentPane.add(iThrow);
 
 		rOne = new JRadioButton("1-6");
-		rOne.setBounds(27, 230, 78, 23);
+		rOne.setFont(UIManager.getFont("Button.font"));
+		rOne.setBounds(30, 230, 60, 23);
 		contentPane.add(rOne);
 		rOne.addActionListener(this);
 
 		rTwo = new JRadioButton("1-10");
-		rTwo.setBounds(27, 255, 78, 23);
+		rTwo.setFont(UIManager.getFont("Button.font"));
+		rTwo.setBounds(30, 255, 65, 23);
 		contentPane.add(rTwo);
 		rTwo.addActionListener(this);
 
 		rThree = new JRadioButton("1-100");
+		rThree.setFont(UIManager.getFont("Button.font"));
 		rThree.setSelected(true);
 		sys_x = 1;
 		sys_y = 100;
-		rThree.setBounds(27, 280, 78, 23);
+		rThree.setBounds(30, 280, 65, 23);
 		contentPane.add(rThree);
 		rThree.addActionListener(this);
 
 		rFour = new JRadioButton("Custom");
-		rFour.setBounds(27, 305, 78, 23);
+		rFour.setFont(UIManager.getFont("Button.font"));
+		rFour.setHorizontalAlignment(SwingConstants.LEFT);
+		rFour.setBounds(30, 305, 68, 23);
 		contentPane.add(rFour);
 		rFour.addActionListener(this);
 
 		tFrom = new JSpinner();
 		tFrom.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		tFrom.setEnabled(false);
-		tFrom.setBounds(50, 335, 53, 25);
+		tFrom.setBounds(45, 335, 53, 25);
 		contentPane.add(tFrom);
 		// tFrom.setColumns(10);
 
 		tTo = new JSpinner();
 		tTo.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		tTo.setEnabled(false);
-		tTo.setBounds(50, 370, 53, 25);
+		tTo.setBounds(45, 370, 53, 25);
 		contentPane.add(tTo);
 		// tTo.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(295, 74, 105, 260);
+		scrollPane.setBounds(265, 55, 110, 279);
 		contentPane.add(scrollPane);
 
 		lHistory = new JList<>(mDice.getHistory());
@@ -233,12 +240,12 @@ public class MainWindow extends JFrame implements ActionListener
 		lblToDo.setBackground(new Color(0, 120, 215));
 		lblToDo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblToDo.setFont(new Font("Monospace", Font.BOLD, 90));
-		lblToDo.setBounds(410, 15, 369, 380);
+		lblToDo.setBounds(385, 15, 394, 380);
 		contentPane.add(lblToDo);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(UIManager.getColor("ToolTip.background"));
-		panel.setBounds(410, 15, 369, 385);
+		panel.setBounds(385, 15, 394, 385);
 		contentPane.add(panel);
 		DefaultListCellRenderer renderer = (DefaultListCellRenderer) lHistory.getCellRenderer();
 		renderer.setHorizontalAlignment(JLabel.RIGHT);
