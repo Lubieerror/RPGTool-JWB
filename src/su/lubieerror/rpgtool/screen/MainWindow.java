@@ -284,7 +284,6 @@ public class MainWindow extends JFrame implements ActionListener
 			mDice.completeClear();
 			currentThrow = null;
 			iThrow.setText("null");
-
 		}
 		else if (my_source == bStart)
 		{
@@ -356,6 +355,5 @@ public class MainWindow extends JFrame implements ActionListener
 			tFrom.setEnabled(true);
 			tTo.setEnabled(true);
 		}
-
 	}
 }
