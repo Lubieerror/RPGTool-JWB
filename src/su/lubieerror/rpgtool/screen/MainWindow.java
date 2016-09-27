@@ -143,7 +143,7 @@ public class MainWindow extends JFrame implements ActionListener
 
 		sHistory = new JLabel("<html><center>Roll history:</center></html>");
 		sHistory.setHorizontalAlignment(SwingConstants.CENTER);
-		sHistory.setBounds(265, 15, 110, 29);
+		sHistory.setBounds(265, 0, 110, 52);
 		sHistory.setFont(new Font("Serif", Font.BOLD, 17));
 		contentPane.add(sHistory);
 
@@ -182,13 +182,13 @@ public class MainWindow extends JFrame implements ActionListener
 
 		rOne = new JRadioButton("1-6");
 		rOne.setFont(UIManager.getFont("Button.font"));
-		rOne.setBounds(30, 230, 60, 23);
+		rOne.setBounds(10, 230, 88, 23);
 		contentPane.add(rOne);
 		rOne.addActionListener(this);
 
 		rTwo = new JRadioButton("1-10");
 		rTwo.setFont(UIManager.getFont("Button.font"));
-		rTwo.setBounds(30, 255, 65, 23);
+		rTwo.setBounds(10, 255, 88, 23);
 		contentPane.add(rTwo);
 		rTwo.addActionListener(this);
 
@@ -197,14 +197,14 @@ public class MainWindow extends JFrame implements ActionListener
 		rThree.setSelected(true);
 		sys_x = 1;
 		sys_y = 100;
-		rThree.setBounds(30, 280, 65, 23);
+		rThree.setBounds(10, 280, 88, 23);
 		contentPane.add(rThree);
 		rThree.addActionListener(this);
 
 		rFour = new JRadioButton("Custom");
 		rFour.setFont(UIManager.getFont("Button.font"));
 		rFour.setHorizontalAlignment(SwingConstants.LEFT);
-		rFour.setBounds(30, 305, 68, 23);
+		rFour.setBounds(10, 305, 88, 23);
 		contentPane.add(rFour);
 		rFour.addActionListener(this);
 
